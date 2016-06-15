@@ -51,5 +51,6 @@ class MainActivity : NucleusAppCompatActivity<MainPresenter>() {
 
     fun onNewMessage() {
         mAdapter?.notifyDataSetChanged()
+        main_list.smoothScrollToPosition(mAdapter?.itemCount!!)
     }
 }

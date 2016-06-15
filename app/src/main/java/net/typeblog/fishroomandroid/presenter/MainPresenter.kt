@@ -19,16 +19,19 @@ import kotlin.collections.MutableList
  */
 class MainPresenter: RxPresenter<MainActivity>() {
     val REQUEST_LOOP = 1
+    val KEY_LIST = "${MainPresenter::class.qualifiedName}#LIST"
     val mService = Retrofit.Builder()
             .baseUrl(FISHROOM)
             .addConverterFactory(JacksonConverterFactory.create())
             .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
             .build()
             .create(Api::class.java)
-    val mList: MutableList<Message> = mutableListOf<Message>()
+    var mList: MutableList<Message> = mutableListOf<Message>()
 
     override fun onCreate(savedState: Bundle?) {
         super.onCreate(savedState)
+        if (savedState != null)
+            mList = savedState.getParcelableArray(KEY_LIST).toMutableList() as MutableList<Message>
 
         restartableLatestCache(REQUEST_LOOP, {
             // Begin the long-polling operation
@@ -46,6 +49,11 @@ class MainPresenter: RxPresenter<MainActivity>() {
         }, { activity, throwable ->
             throw throwable
         })
+    }
+
+    override fun onSave(state: Bundle) {
+        super.onSave(state)
+        state.putParcelableArray(KEY_LIST, mList.toTypedArray())
     }
 
     fun startLoop() {

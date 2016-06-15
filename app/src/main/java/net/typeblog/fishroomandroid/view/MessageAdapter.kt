@@ -22,7 +22,7 @@ class MessageAdater(val mItemList: MutableList<Message>) : RecyclerView.Adapter<
         mInflater = mInflater ?: parent.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val itemView = mInflater?.inflate(R.layout.msg_item, parent, false)
 
-        return ViewHolder(itemView as View)
+        return ViewHolder(itemView!!)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
