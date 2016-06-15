@@ -28,6 +28,9 @@ class MessageAdater(val mItemList: MutableList<Message>) : RecyclerView.Adapter<
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val msg = mItemList[itemCount - position - 1]
         holder.content.text = msg.content
+        holder.sender.text = msg.sender
+        holder.from.text = msg.channel
+        holder.time.text = "${msg.time}"
     }
 
     override fun getItemCount(): Int {
@@ -36,7 +39,10 @@ class MessageAdater(val mItemList: MutableList<Message>) : RecyclerView.Adapter<
 
     class ViewHolder(
             val itemView: View,
-            val content: TextView = itemView.findViewById(R.id.content) as TextView
+            val content: TextView = itemView.findViewById(R.id.content) as TextView,
+            val sender: TextView = itemView.findViewById(R.id.sender) as TextView,
+            val from: TextView = itemView.findViewById(R.id.from) as TextView,
+            val time: TextView = itemView.findViewById(R.id.time) as TextView
     ) : RecyclerView.ViewHolder(itemView) {
 
     }

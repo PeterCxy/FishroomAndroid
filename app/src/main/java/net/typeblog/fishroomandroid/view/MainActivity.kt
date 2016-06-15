@@ -45,6 +45,8 @@ class MainActivity : NucleusAppCompatActivity<MainPresenter>() {
         val manager = LinearLayoutManager(this)
         manager.stackFromEnd = true
         main_list.layoutManager = manager
+        main_list.addItemDecoration(DividerItemDecoration(this, null))
+
     }
 
     fun onNewMessage() {
