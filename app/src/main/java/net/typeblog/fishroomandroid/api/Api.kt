@@ -10,5 +10,8 @@ import net.typeblog.fishroomandroid.model.*
  */
 interface Api {
     @GET("/api/messages")
-    fun getMessages(@Query("id") app_id: String, @Query("key") app_key: String, @Query("room") room: String): Observable<MessageList>
+    fun getMessages(@Query("room") room: String): Observable<MessageList>
+
+    @POST("/api/messages/{room}/")
+    fun sendMessage(@Path("room") room: String, @Body body: SendMessageRequestBody): Observable<SendMessageResponseBody>
 }
